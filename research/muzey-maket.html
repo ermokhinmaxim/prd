@@ -1,0 +1,444 @@
+<title>Музей неоплаченных покупок</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  color-scheme:dark;
+  --hall:#0D0D0F; --wall:#131316; --vitrine:#18181C; --plinth:#0A0A0B;
+  --ink:#F1ECE4; --muted:#9C968C; --faint:#5E5A54; --line:rgba(241,236,228,.10);
+  --decline:#E5392F; --brass:#C8A15A; --brass-dim:rgba(200,161,90,.16);
+  --light:rgba(255,226,178,.20);
+  --display:'Oswald','Arial Narrow',sans-serif;
+  --body:'Golos Text',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{background:var(--hall)}
+body{background:var(--hall);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;margin:0;
+  padding-block:0 80px;padding-left:16px;padding-right:16px}
+.wrap{max-width:1120px;margin:0 auto}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+
+.mock{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--hall);
+  background:var(--brass);text-align:center;padding:6px 10px;margin:0 -16px}
+
+nav.top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:18px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;font-size:13px;line-height:1.15;color:var(--muted)}
+.brand svg{flex:none}
+.brand b{display:block;color:var(--ink);font-weight:500}
+nav.top ul{display:flex;gap:4px 20px;flex-wrap:wrap;list-style:none;margin:0;padding:0;font-size:14px}
+nav.top a{color:var(--muted);text-decoration:none}
+nav.top a:hover{color:var(--ink)}
+
+/* hero */
+.hero{position:relative;padding-block:64px 44px;text-align:left}
+.hero::before{content:"";position:absolute;inset:0 0 auto;height:420px;pointer-events:none;
+  background:radial-gradient(ellipse 40% 60% at 22% 0%,var(--light),transparent 70%),radial-gradient(ellipse 30% 50% at 78% 0%,rgba(255,226,178,.10),transparent 70%)}
+.hero>*{position:relative}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass)}
+h1{font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:clamp(44px,10.5vw,124px);
+  line-height:.9;letter-spacing:-.005em;margin:18px 0 22px;text-wrap:balance}
+h1 span{color:var(--decline)}
+.lede{font-size:clamp(17px,2.2vw,20px);max-width:44ch;color:var(--ink);margin:0 0 30px}
+.lede em{font-style:normal;color:var(--brass)}
+.entry{display:flex;flex-wrap:wrap;gap:14px 28px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--ink);background:var(--ink);color:var(--hall);
+  font-family:var(--display);text-transform:uppercase;letter-spacing:.06em;font-size:16px;padding:12px 22px;cursor:pointer;text-decoration:none;border-radius:0}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn:hover{background:var(--brass);border-color:var(--brass);color:var(--hall)}
+.ticket{font-family:var(--mono);font-size:12px;color:var(--muted)}
+
+.counter{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:46px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.counter div{padding:16px 16px 14px 0}
+.counter div+div{padding-left:18px;border-left:1px solid var(--line)}
+.counter b{display:block;font-family:var(--display);font-weight:500;font-size:clamp(26px,4.4vw,44px);line-height:1;font-variant-numeric:tabular-nums}
+.counter span{font-size:13px;color:var(--muted)}
+.counter .out b{color:var(--brass)}
+
+/* halls */
+section{padding-block:56px 0}
+.sh{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+h2{font-family:var(--display);font-weight:600;text-transform:uppercase;font-size:clamp(28px,4.6vw,46px);line-height:1;margin:0;letter-spacing:.005em}
+.sh p{margin:0;color:var(--muted);font-size:15px;max-width:46ch}
+.halls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+.halls button{background:transparent;border:1px solid var(--line);padding:9px 14px;cursor:pointer;display:flex;gap:10px;align-items:baseline;border-radius:0}
+.halls button .r{font-family:var(--mono);font-size:11px;color:var(--brass)}
+.halls button .c{font-family:var(--mono);font-size:11px;color:var(--faint)}
+.halls button[aria-pressed="true"]{background:var(--ink);color:var(--hall);border-color:var(--ink)}
+.halls button[aria-pressed="true"] .c{color:var(--hall)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+.vit{display:flex;flex-direction:column;background:transparent;border:0;padding:0;text-align:left;cursor:pointer;color:inherit}
+.glass{position:relative;aspect-ratio:4/4.3;max-width:100%;background:linear-gradient(180deg,#1d1d22,var(--vitrine) 60%);
+  border:1px solid rgba(241,236,228,.14);border-bottom:0;display:grid;place-items:center;overflow:hidden}
+.glass::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 60% 55% at 50% 0%,var(--light),transparent 72%);
+  animation:lamp 1.4s ease-out both;animation-delay:var(--d,0s)}
+.glass::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.05) 38%,transparent 46%);pointer-events:none}
+@keyframes lamp{from{opacity:.35}to{opacity:1}}
+.screen{position:relative;width:62%;background:#F7F5F1;color:#141416;border-radius:14px;padding:16px 12px 14px;
+  box-shadow:0 18px 30px rgba(0,0,0,.55);display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;transition:transform .3s}
+.vit:hover .screen{transform:translateY(-4px)}
+.screen .x{width:34px;height:34px;border-radius:50%;background:var(--decline);display:grid;place-items:center;margin-bottom:4px}
+.screen .x::before,.screen .x::after{content:"";position:absolute;width:14px;height:2.5px;background:#fff;border-radius:2px}
+.screen .x{position:relative}
+.screen .x::before{transform:rotate(45deg)}.screen .x::after{transform:rotate(-45deg)}
+.screen .t{font-weight:600;font-size:14px;line-height:1.15}
+.screen .a{font-family:var(--mono);font-weight:600;font-size:17px;margin-top:2px}
+.screen .m{font-size:11px;color:#6b6760}
+.screen .k{font-family:var(--mono);font-size:10px;color:var(--decline);margin-top:4px}
+.stamp{position:absolute;right:10px;top:14px;transform:rotate(9deg);border:2px solid var(--brass);color:var(--brass);
+  font-family:var(--display);font-size:13px;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;background:rgba(13,13,15,.7)}
+.stamp.new{border-color:var(--muted);color:var(--muted)}
+.plinth{background:var(--plinth);border:1px solid rgba(241,236,228,.08);border-top:3px solid #000;padding:14px 14px 16px;flex:1;display:flex;flex-direction:column;gap:6px}
+.plinth .d{font-family:var(--display);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--decline)}
+.plinth.redeemed .d{color:var(--brass)}
+.plinth h3{font-family:var(--body);font-weight:600;font-size:16px;line-height:1.25;margin:0}
+.plinth .inv{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:auto}
+
+/* honest shelf */
+.shelf{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:28px;border:1px solid var(--line);padding:26px;background:var(--wall)}
+.shelf h2{font-size:clamp(24px,3.6vw,34px)}
+.shelf p{color:var(--muted);font-size:15px;margin:12px 0 0;max-width:40ch}
+.shelf .items{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.card-plaque{border:1px solid var(--line);padding:16px;background:var(--hall)}
+.card-plaque .d{font-family:var(--display);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.card-plaque h3{font-size:16px;font-weight:600;margin:6px 0 8px;line-height:1.25}
+.card-plaque p{font-size:14px;margin:0;color:var(--ink);max-width:none}
+.card-plaque .n{font-family:var(--mono);font-size:11px;color:var(--brass);margin-top:10px;display:block}
+
+/* redeemed */
+.out-strip{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:32px;align-items:center}
+.out-strip p{color:var(--muted);font-size:16px;max-width:46ch;margin:14px 0 0}
+.ledger{font-family:var(--mono);font-size:13px;border-top:1px solid var(--line)}
+.ledger div{display:grid;grid-template-columns:92px 1fr auto;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.ledger .dt{color:var(--brass)}
+.ledger .s{color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+
+/* donate */
+.donate{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:36px;align-items:start}
+form{display:grid;gap:14px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label.f{display:grid;gap:6px;font-size:13px;color:var(--muted)}
+input[type=text],input[type=number],select,textarea{background:var(--wall);border:1px solid var(--line);padding:11px 12px;border-radius:0;color:var(--ink);font-size:15px;width:100%}
+textarea{min-height:92px;resize:vertical}
+input:focus,select:focus,textarea:focus{border-color:var(--brass);outline:none}
+.file{border:1px dashed rgba(241,236,228,.25);padding:14px;font-size:14px;color:var(--muted)}
+.file input{margin-top:8px;font-size:13px;max-width:100%}
+.chk{display:flex;gap:10px;font-size:13px;color:var(--muted);align-items:flex-start}
+.chk input{margin-top:3px;accent-color:var(--brass)}
+.preview{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px)}
+.preview .lab{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:10px}
+.plaque{background:linear-gradient(160deg,#2a2419,#1a1712);border:1px solid rgba(200,161,90,.45);padding:22px 22px 20px;color:#EDE2CC;box-shadow:0 12px 34px rgba(0,0,0,.5)}
+.plaque .inv{font-family:var(--mono);font-size:11px;color:var(--brass);letter-spacing:.08em}
+.plaque h3{font-family:var(--display);font-weight:500;font-size:26px;line-height:1.05;text-transform:uppercase;margin:10px 0 12px;word-break:break-word}
+.plaque dl{display:grid;grid-template-columns:auto 1fr;gap:5px 14px;margin:0 0 14px;font-size:14px}
+.plaque dt{font-family:var(--mono);font-size:11px;color:var(--brass);text-transform:uppercase;letter-spacing:.06em;padding-top:2px}
+.plaque dd{margin:0;word-break:break-word}
+.plaque blockquote{margin:0;padding-top:12px;border-top:1px solid rgba(200,161,90,.3);font-size:15px;line-height:1.45;font-style:italic;word-break:break-word}
+.plaque .by{font-size:13px;color:#b9ab8f;margin-top:10px}
+
+/* shop */
+.shop{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:36px;align-items:center;border-top:1px solid var(--line);padding-top:44px}
+.shop p{color:var(--muted);font-size:16px;max-width:44ch;margin:14px 0 20px}
+.cards{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.pc{width:min(160px,28vw);aspect-ratio:85.6/54;border-radius:9px;position:relative;box-shadow:0 14px 28px rgba(0,0,0,.5);max-width:100%}
+.pc:nth-child(1){background:linear-gradient(135deg,#2b2b31,#0f0f12);transform:rotate(-6deg)}
+.pc:nth-child(2){background:linear-gradient(135deg,#d9d2c4,#9c9384);transform:translateY(-10px)}
+.pc:nth-child(3){background:linear-gradient(135deg,#7d1e19,#2a0b09);transform:rotate(6deg)}
+.pc::before{content:"";position:absolute;left:12%;top:36%;width:15%;height:22%;border-radius:3px;background:linear-gradient(135deg,#e6c989,#9a7a3a)}
+.pc span{position:absolute;right:8%;bottom:10%;font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.7)}
+.pc:nth-child(2) span{color:rgba(0,0,0,.55)}
+.shop small{display:block;text-align:center;font-family:var(--mono);font-size:11px;color:var(--faint);margin-top:18px}
+
+footer{margin-top:64px;padding-top:20px;border-top:1px solid var(--line);font-size:12px;color:var(--faint);display:grid;gap:6px}
+
+/* dialog */
+dialog{background:transparent;border:0;padding:16px;max-width:min(720px,100%);width:100%;color:var(--ink)}
+dialog::backdrop{background:rgba(5,5,6,.82)}
+.dlg{background:var(--wall);border:1px solid var(--line);display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
+.dlg .glass{aspect-ratio:auto;min-height:100%;border:0}
+.dlg .plaque{box-shadow:none;border:0;border-left:1px solid rgba(200,161,90,.35)}
+.dlg .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.dlg .acts .btn{font-size:14px;padding:10px 14px}
+.close{position:absolute;right:26px;top:24px;background:var(--hall);border:1px solid var(--line);width:34px;height:34px;cursor:pointer;z-index:2;font-size:18px;line-height:1}
+.audio{display:inline-flex;gap:8px;align-items:center;font-family:var(--mono);font-size:12px;color:var(--brass);background:transparent;border:1px solid rgba(200,161,90,.4);padding:6px 10px;cursor:pointer;margin-top:14px}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;
+  background:var(--ink);color:var(--hall);padding:12px 18px;font-size:14px;max-width:calc(100% - 32px);transition:.25s;pointer-events:none;z-index:10}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:820px){
+  .shelf,.out-strip,.donate,.shop{grid-template-columns:1fr}
+  .preview{position:static}
+  .dlg{grid-template-columns:1fr}
+  .dlg .glass{min-height:260px}
+  .dlg .plaque{border-left:0;border-top:1px solid rgba(200,161,90,.35)}
+}
+@media (max-width:520px){
+  .counter{grid-template-columns:1fr}
+  .counter div+div{border-left:0;padding-left:0;border-top:1px solid var(--line)}
+  .row{grid-template-columns:1fr}
+  .ledger div{grid-template-columns:78px 1fr}
+  .ledger .s{grid-column:2;text-align:left}
+}
+@media (prefers-reduced-motion:reduce){.glass::before{animation:none}.screen,.toast{transition:none}}
+</style>
+
+<div class="mock">Макет спецпроекта · все истории, имена и цифры — примеры</div>
+<div class="wrap">
+<nav class="top" aria-label="Разделы музея">
+  <div class="brand">
+    <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="12.5" fill="none" stroke="#F1ECE4" stroke-width="1.5"/><ellipse cx="14" cy="14" rx="5.5" ry="12.5" fill="none" stroke="#F1ECE4" stroke-width="1.5"/><path d="M2 14h24M4.5 8h19M4.5 20h19" stroke="#F1ECE4" stroke-width="1.5" fill="none"/></svg>
+    <div><b>Плати по всему миру</b>представляет</div>
+  </div>
+  <ul>
+    <li><a href="#halls">Залы</a></li>
+    <li><a href="#shelf">Не выкупается</a></li>
+    <li><a href="#out">Выкупленное</a></li>
+    <li><a href="#donate">Сдать экспонат</a></li>
+    <li><a href="#shop">Лавка</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow">Открыт ежедневно · вход свободный</div>
+  <h1>Музей неопла&shy;ченных <span>покупок</span></h1>
+  <p class="lede">Здесь хранится всё, что вы хотели, но не смогли оплатить. Экспонаты приносят посетители. <em>Это единственный музей, который мечтает опустеть.</em></p>
+  <div class="entry">
+    <a class="btn" href="#donate">Сдать экспонат</a>
+    <a class="btn ghost" href="#halls">Пройти в залы</a>
+    <span class="ticket">Билет № 0 048 211 · сохраните до выхода</span>
+  </div>
+  <div class="counter" aria-label="Счётчик музея">
+    <div><b id="cnt-fund">12 480</b><span>экспонатов в фондах</span></div>
+    <div><b>38,6 млн ₽</b><span>стоимость неоплаченного</span></div>
+    <div class="out"><b>312</b><span>покинули музей: выкуплены</span></div>
+  </div>
+</header>
+
+<section id="halls">
+  <div class="sh">
+    <h2>Постоянная экспозиция</h2>
+    <p>Под стеклом — не вещь, а экран отказа: сумма, дата, код. Нажмите на витрину, чтобы прочитать табличку целиком.</p>
+  </div>
+  <div class="halls" role="group" aria-label="Выбор зала" id="halls-nav"></div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<section id="shelf">
+  <div class="shelf">
+    <div>
+      <div class="eyebrow">Отдельная витрина</div>
+      <h2 style="margin-top:10px">Не выкупается</h2>
+      <p>Вещи, которые не оплатить и нашей картой. Честно держим их здесь, чтобы остальные таблички в музее не врали.</p>
+    </div>
+    <div class="items">
+      <div class="card-plaque"><div class="d">Оплата отклонена · навсегда</div><h3>Подписка на зарубежную нейросеть</h3><p>Сервис не принимает пользователей из России, какой бы картой они ни платили.</p><span class="n">Мы тоже пробовали</span></div>
+      <div class="card-plaque"><div class="d">Оплата отклонена · навсегда</div><h3>Посылка из магазина, который не возит в Россию</h3><p>Оплата пройдёт, а посылка не приедет: магазин не отправляет заказы по российским адресам.</p><span class="n">Мы тоже пробовали</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="out">
+  <div class="out-strip">
+    <div>
+      <div class="eyebrow">Зал выкупленного</div>
+      <h2 style="margin-top:10px">Экспонаты, которые нас покинули</h2>
+      <p>Когда экспонат наконец оплачен, он получает штамп и дату и уходит из витрины сюда. Раз в неделю кураторы выбирают несколько историй, и музей выкупает экспонат за свой счёт.</p>
+    </div>
+    <div class="ledger" aria-label="Последние выкупы">
+      <div><span class="dt">03.10.2026</span><span>Бронь отеля в Стамбуле</span><span class="s">38 400 ₽</span></div>
+      <div><span class="dt">02.10.2026</span><span>Подписка на игровую консоль, год</span><span class="s">15 480 ₽</span></div>
+      <div><span class="dt">30.09.2026</span><span>Запчасть для синтезатора</span><span class="s">€ 85</span></div>
+      <div><span class="dt">29.09.2026</span><span>Взнос за курс по керамике</span><span class="s">$ 60</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="donate">
+  <div class="sh">
+    <h2>Сдать экспонат</h2>
+    <p>Расскажите, что не удалось оплатить. Пока вы пишете, справа собирается табличка для вашей витрины.</p>
+  </div>
+  <div class="donate">
+    <form id="form" novalidate>
+      <label class="f" for="f-what">Что не удалось оплатить
+        <input type="text" id="f-what" maxlength="60" placeholder="Например: билет на концерт в Берлине"></label>
+      <div class="row">
+        <label class="f" for="f-where">Где это было
+          <input type="text" id="f-where" maxlength="40" placeholder="Город или сайт"></label>
+        <label class="f" for="f-when">Когда
+          <input type="text" id="f-when" maxlength="20" placeholder="Месяц и год"></label>
+      </div>
+      <div class="row">
+        <label class="f" for="f-sum">Сумма
+          <input type="text" id="f-sum" maxlength="16" placeholder="11 900 ₽"></label>
+        <label class="f" for="f-code">Код отказа, если помните
+          <select id="f-code">
+            <option value="">Не помню, просто не прошло</option>
+            <option value="05">05 — банк отказал без объяснений</option>
+            <option value="57">57 — операция запрещена для держателя карты</option>
+            <option value="58">58 — операция запрещена для этого магазина</option>
+            <option value="62">62 — карта с ограничениями</option>
+          </select></label>
+      </div>
+      <label class="f" for="f-story">История в одну-две строки
+        <textarea id="f-story" maxlength="240" placeholder="Что вы почувствовали, когда увидели отказ"></textarea></label>
+      <div class="row">
+        <label class="f" for="f-name">Имя на табличке
+          <input type="text" id="f-name" maxlength="24" placeholder="Можно только имя"></label>
+        <label class="f" for="f-city">Город
+          <input type="text" id="f-city" maxlength="24"></label>
+      </div>
+      <div class="file">Скриншот отказа, если сохранился. Номер карты и имя закроем автоматически.
+        <br><input type="file" id="f-shot" accept="image/*"></div>
+      <label class="chk" for="c-pd"><input type="checkbox" id="c-pd"> Согласен на обработку персональных данных</label>
+      <label class="chk" for="c-pub"><input type="checkbox" id="c-pub"> Отдельно согласен, чтобы имя, город и история были опубликованы в музее</label>
+      <label class="chk" for="c-rules"><input type="checkbox" id="c-rules"> Прочитал правила еженедельного выкупа экспонатов</label>
+      <div><button class="btn" type="submit">Передать в фонды</button></div>
+    </form>
+    <div class="preview" aria-live="polite">
+      <div class="lab">Ваша табличка</div>
+      <div class="plaque" id="pv">
+        <div class="inv" id="pv-inv">Инв. № 12 481 · на экспертизе</div>
+        <h3 id="pv-what">Ваш экспонат</h3>
+        <dl>
+          <dt>Место</dt><dd id="pv-where">—</dd>
+          <dt>Время</dt><dd id="pv-when">—</dd>
+          <dt>Сумма</dt><dd id="pv-sum">—</dd>
+          <dt>Отказ</dt><dd id="pv-code">без кода</dd>
+        </dl>
+        <blockquote id="pv-story">Здесь будет ваша история.</blockquote>
+        <div class="by" id="pv-by">Дар музею</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="shop">
+  <div class="shop">
+    <div>
+      <div class="eyebrow">Сувенирная лавка</div>
+      <h2 style="margin-top:10px">Единственный сувенир выводит из музея</h2>
+      <p>Карта «Плати по всему миру», чтобы ваш экспонат не пришлось сдавать. Первая пластиковая коллекция от Студии Артемия Лебедева — в октябре.</p>
+      <button class="btn" type="button" data-toast="В макете: ведёт на оформление карты по коду музея">Оформить карту</button>
+    </div>
+    <div>
+      <div class="cards" aria-hidden="true">
+        <div class="pc"><span>№ 0001</span></div>
+        <div class="pc"><span>№ 0417</span></div>
+        <div class="pc"><span>№ 1093</span></div>
+      </div>
+      <small>Дизайны коллекции — после раскрытия 14 октября</small>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Реклама. Организатор: [юрлицо сервиса], ИНН [—]. erid: [—]</span>
+  <span>Правила еженедельного выкупа экспонатов · Политика обработки персональных данных · Названия товаров на табличках даны родовыми словами</span>
+</footer>
+</div>
+
+<dialog id="dlg" aria-label="Табличка экспоната">
+  <div style="position:relative">
+    <button class="close" type="button" id="dlg-close" aria-label="Закрыть">×</button>
+    <div class="dlg" id="dlg-body"></div>
+  </div>
+</dialog>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const HALLS=[
+  {id:'all',r:'',n:'Все залы'},
+  {id:1,r:'I',n:'Дороги'},
+  {id:2,r:'II',n:'Подписки'},
+  {id:3,r:'III',n:'Вещи'},
+  {id:4,r:'IV',n:'Учёба и работа'},
+  {id:5,r:'V',n:'Мечты'},
+  {id:'new',r:'',n:'Новые поступления'}
+];
+const CODES={'05':'05 — банк отказал без объяснений','57':'57 — операция запрещена для держателя карты','58':'58 — операция запрещена для этого магазина','62':'62 — карта с ограничениями','':'без кода'};
+const EX=[
+  {h:1,inv:'00417',t:'Бронь отеля в Стамбуле',m:'Отель · Стамбул',w:'май 2025',a:'38 400 ₽',c:'57',s:'Бронировала за три месяца. Отказ пришёл за три дня до вылета: повторное списание не прошло, бронь сняли.',by:'Ольга, 34, Екатеринбург',out:'03.10.2026'},
+  {h:1,inv:'01288',t:'Залог за машину в Тбилиси',m:'Прокат · Тбилиси',w:'август 2024',a:'21 000 ₽',c:'62',s:'На стойке сказали: для депозита нужна карта, наличные не берём. Поехали на маршрутке.',by:'Игорь, 41, Краснодар'},
+  {h:1,inv:'02031',t:'Билет на концерт в Берлине',m:'Билетный сайт',w:'март 2025',a:'11 900 ₽',c:'05',s:'Последний тур любимой группы. Билеты раскупили, пока я пробовал третью карту.',by:'Дмитрий, 27, Москва'},
+  {h:2,inv:'00102',t:'Подписка на игровую консоль',m:'Магазин приставки',w:'январь 2025',a:'1 290 ₽/мес',c:'57',s:'Сын копил на год подписки. Три попытки, три отказа. Он сказал: ладно, пап, поиграю в старое.',by:'Сергей, 45, Пермь',out:'02.10.2026'},
+  {h:2,inv:'03310',t:'Программа для монтажа видео',m:'Сайт разработчика',w:'октябрь 2024',a:'$ 20,99/мес',c:'05',s:'Работала в ней шесть лет. Подписка слетела посреди проекта для заказчика.',by:'Алина, 31, Новосибирск'},
+  {h:2,inv:'03902',t:'Облачное хранилище семейных фото',m:'Сайт сервиса',w:'ноябрь 2024',a:'$ 2,99/мес',c:'57',s:'Двенадцать лет фотографий. Подписка не продлилась, место кончилось, новые снимки больше не загружаются.',by:'Наталья, 52, Ярославль'},
+  {h:3,inv:'04452',t:'Кроссовки с зарубежного сайта',m:'Интернет-магазин',w:'июнь 2025',a:'14 990 ₽',c:'57',s:'Размер 44, последняя пара. Пока искал, чем заплатить, закончилась и она.',by:'Артём, 22, Казань'},
+  {h:3,inv:'00913',t:'Запчасть для синтезатора',m:'Мастерская · Италия',w:'февраль 2025',a:'€ 85',c:'62',s:'Производитель давно закрылся. Деталь есть у одного мастера в Италии.',by:'Виктор, 58, Самара',out:'30.09.2026'},
+  {h:4,inv:'05120',t:'Экзамен по английскому',m:'Сайт экзаменационного центра',w:'апрель 2025',a:'23 500 ₽',c:'05',s:'Регистрация закрывалась в полночь. В 23:58 пришёл отказ.',by:'Мария, 19, Томск'},
+  {h:4,inv:'05877',t:'Онлайн-курс зарубежного университета',m:'Образовательная платформа',w:'сентябрь 2024',a:'$ 49',c:'57',s:'Сертификат был нужен к собеседованию. Собеседование прошло без него.',by:'Екатерина, 26, Воронеж'},
+  {h:5,inv:'00010',t:'Билет в парк развлечений под Парижем',m:'Сайт парка',w:'июль 2025',a:'16 200 ₽',c:'62',s:'Обещал дочке на десятилетие. Отмечали дома, с тортом в форме замка.',by:'Андрей, 38, Тула'},
+  {h:5,inv:'06642',t:'Взнос за марафон в Нью-Йорке',m:'Сайт забега',w:'март 2025',a:'$ 295',c:'05',s:'Семь лет бегаю. Выиграл слот в жеребьёвке, а оплатить не смог.',by:'Роман, 44, Санкт-Петербург'}
+];
+let cur='all';
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function screen(e){return `<div class="screen"><span class="x" aria-hidden="true"></span><span class="t">Оплата отклонена</span><span class="a">${esc(e.a||'—')}</span><span class="m">${esc(e.m||'')}</span><span class="k">код ${esc(e.c||'—')}</span></div>`}
+function stamp(e){return e.out?`<span class="stamp">Выкуплено</span>`:e.fresh?`<span class="stamp new">На экспертизе</span>`:''}
+
+function renderNav(){
+  $('#halls-nav').innerHTML=HALLS.filter(h=>h.id!=='new'||EX.some(e=>e.h==='new')).map(h=>{
+    const c=h.id==='all'?EX.length:EX.filter(e=>e.h===h.id).length;
+    return `<button type="button" data-h="${h.id}" aria-pressed="${String(h.id)===String(cur)}">${h.r?`<span class="r">Зал ${h.r}</span>`:''}<span>${h.n}</span><span class="c">${c}</span></button>`}).join('');
+}
+function renderGrid(){
+  const list=EX.filter(e=>cur==='all'||String(e.h)===String(cur));
+  $('#grid').innerHTML=list.map((e,i)=>`<button class="vit" type="button" data-i="${EX.indexOf(e)}" style="--d:${(i*0.12).toFixed(2)}s" aria-label="${esc(e.t)}">
+    <div class="glass">${screen(e)}${stamp(e)}</div>
+    <div class="plinth${e.out?' redeemed':''}"><span class="d">${e.out?'Выкуплено '+e.out:'Оплата отклонена'}</span><h3>${esc(e.t)}</h3><span class="inv">Инв. № ${esc(e.inv)} · ${esc(e.w||'')}</span></div>
+  </button>`).join('');
+}
+function plaque(e){
+  return `<div class="plaque"><div class="inv">Инв. № ${esc(e.inv)}${e.out?' · выкуплено '+e.out:''}</div>
+    <h3>${esc(e.t)}</h3>
+    <dl><dt>Место</dt><dd>${esc(e.m||'—')}</dd><dt>Время</dt><dd>${esc(e.w||'—')}</dd><dt>Сумма</dt><dd>${esc(e.a||'—')}</dd><dt>Отказ</dt><dd>${esc(CODES[e.c]||'без кода')}</dd></dl>
+    <blockquote>${esc(e.s||'')}</blockquote><div class="by">Дар музею: ${esc(e.by||'аноним')}</div>
+    <button class="audio" type="button" data-toast="В макете без звука: аудиогид читает даритель или звезда">▶ Аудиогид · 0:48</button>
+    <div class="acts">${e.out?'':'<button class="btn" type="button" data-toast="В макете: оформление карты, витрина откроется по коду музея">Выкупить такой же</button>'}<button class="btn ghost" type="button" data-toast="В макете: карточка экспоната для сторис">Поделиться</button></div></div>`;
+}
+function openEx(i){
+  const e=EX[i];
+  $('#dlg-body').innerHTML=`<div class="glass">${screen(e)}${stamp(e)}</div>${plaque(e)}`;
+  const d=$('#dlg'); if(d.showModal) d.showModal(); else d.setAttribute('open','');
+}
+let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2600)}
+
+document.addEventListener('click',ev=>{
+  const h=ev.target.closest('[data-h]'); if(h){cur=h.dataset.h;renderNav();renderGrid();return}
+  const v=ev.target.closest('.vit'); if(v){openEx(+v.dataset.i);return}
+  const t=ev.target.closest('[data-toast]'); if(t){toast(t.dataset.toast);return}
+});
+$('#dlg-close').addEventListener('click',()=>$('#dlg').close());
+$('#dlg').addEventListener('click',ev=>{if(ev.target.id==='dlg')$('#dlg').close()});
+
+/* live plaque */
+const F=id=>document.getElementById(id);
+function upd(){
+  F('pv-what').textContent=F('f-what').value.trim()||'Ваш экспонат';
+  F('pv-where').textContent=F('f-where').value.trim()||'—';
+  F('pv-when').textContent=F('f-when').value.trim()||'—';
+  F('pv-sum').textContent=F('f-sum').value.trim()||'—';
+  F('pv-code').textContent=CODES[F('f-code').value];
+  F('pv-story').textContent=F('f-story').value.trim()||'Здесь будет ваша история.';
+  const n=F('f-name').value.trim(),c=F('f-city').value.trim();
+  F('pv-by').textContent='Дар музею'+(n||c?': '+[n,c].filter(Boolean).join(', '):'');
+}
+['f-what','f-where','f-when','f-sum','f-code','f-story','f-name','f-city'].forEach(id=>F(id).addEventListener('input',upd));
+let inv=12481;
+F('form').addEventListener('submit',ev=>{
+  ev.preventDefault();
+  if(!F('f-what').value.trim()){toast('Напишите, что не удалось оплатить: это название экспоната');F('f-what').focus();return}
+  if(!F('c-pd').checked||!F('c-pub').checked){toast('Для публикации в музее нужны оба согласия');return}
+  EX.unshift({h:'new',inv:String(inv).padStart(5,'0'),t:F('f-what').value.trim(),m:F('f-where').value.trim(),w:F('f-when').value.trim(),a:F('f-sum').value.trim(),c:F('f-code').value,s:F('f-story').value.trim(),by:[F('f-name').value.trim(),F('f-city').value.trim()].filter(Boolean).join(', ')||'аноним',fresh:true});
+  inv++; F('pv-inv').textContent='Инв. № '+inv.toLocaleString('ru-RU')+' · на экспертизе';
+  F('cnt-fund').textContent=(12480+EX.filter(e=>e.fresh).length).toLocaleString('ru-RU');
+  cur='new';renderNav();renderGrid();F('form').reset();upd();
+  toast('Экспонат принят в фонды. Кураторы посмотрят его в течение трёх дней');
+  document.getElementById('halls').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});
+});
+renderNav();renderGrid();
+</script>
