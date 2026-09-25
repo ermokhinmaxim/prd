@@ -376,4 +376,5 @@ GetPayAll — единственный с систематической PR-ма
 | `kreativnyy-bord-q4-2026.md` | Первый борд |
 | `premii-pitch-plati-po-miru.md` | Питч-лист под премии |
 | `medialogia-infopovody-plati-po-miru.md` | Исходное исследование рейтинга и мировых кейсов |
-| `digital-club-tezisy-belov.md` | Тезисы Павла Белова для панели Digital Club «Финтех на высокой ставке» |
+| `digital-club-tezisy-belov.md` | Рабочая версия тезисов Павла Белова для Digital Club: источники, чек-лист, неудобные вопросы |
+| `digital-club-tezisy-belov-final.md` | Тезисы Павла Белова для Digital Club: только вопросы сценария и ответы |
