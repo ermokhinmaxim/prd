@@ -88,7 +88,7 @@
 
 **Бюджет без гонорара студии и тиража:** 0,45–0,7 млн. Гонорар студии — главная строка, запрашивать до утверждения размера коллекции.
 
-Подробно: `kollektsiya-lebedeva.md`. Архив конкурсной версии: `konkurs-dizayna-kart.md`.
+Подробно: `spetsproekty/kollektsiya-lebedeva.md`. Архив конкурсной версии: `arhiv/konkurs-dizayna-kart.md`.
 
 ---
 
@@ -100,7 +100,7 @@
 
 Онлайн 1,3–2 млн, 4–5 недель. Офлайн в аэропорту — вторая волна, от 3 млн плюс размещение. Пересекается с Белыми пятнами: решить, заменяет или поглощает.
 
-Подробно: `muzey-neoplachennyh-pokupok.md`. Макет: `muzey-maket.html`.
+Подробно: `spetsproekty/muzey-neoplachennyh-pokupok.md`. Макет: `spetsproekty/muzey-maket.html`.
 
 ---
 
@@ -364,15 +364,18 @@ GetPayAll — единственный с систематической PR-ма
 |---|---|
 | `VSE-IDEI.md` | Этот каталог |
 | `TOP-5.md` | Топ-5 для запуска, календарь квартала |
-| `muzey-neoplachennyh-pokupok.md` | Спецпроект: Музей неоплаченных покупок |
-| `muzey-maket.html` | Макет страницы музея |
-| `kollektsiya-lebedeva.md` | Коллекция карт от Студии Лебедева, первый пластик |
-| `konkurs-dizayna-kart.md` | Архив: конкурсная версия |
-| `luchshaya-rabota.md` | Испытатель мира, подробно |
-| `tri-idei-raskrutka.md` | Белые пятна, конверт, стена |
-| `bystrye-hody-oktyabr.md` | Десять быстрых ходов |
-| `desyat-mehanik-q4-2026.md` | Десять механик с бюджетами |
-| `tri-mehaniki-q4-2026.md` | Ранняя версия трёх механик |
-| `kreativnyy-bord-q4-2026.md` | Первый борд |
-| `premii-pitch-plati-po-miru.md` | Питч-лист под премии |
-| `medialogia-infopovody-plati-po-miru.md` | Исходное исследование рейтинга и мировых кейсов |
+| `spetsproekty/muzey-neoplachennyh-pokupok.md` | Спецпроект: Музей неоплаченных покупок |
+| `spetsproekty/muzey-maket.html` | Макет страницы музея |
+| `spetsproekty/kollektsiya-lebedeva.md` | Коллекция карт от Студии Лебедева, первый пластик |
+| `arhiv/konkurs-dizayna-kart.md` | Архив: конкурсная версия |
+| `spetsproekty/luchshaya-rabota.md` | Испытатель мира, подробно |
+| `spetsproekty/tri-idei-raskrutka.md` | Белые пятна, конверт, стена |
+| `arhiv/bystrye-hody-oktyabr.md` | Десять быстрых ходов |
+| `arhiv/desyat-mehanik-q4-2026.md` | Десять механик с бюджетами |
+| `arhiv/tri-mehaniki-q4-2026.md` | Ранняя версия трёх механик |
+| `arhiv/kreativnyy-bord-q4-2026.md` | Первый борд |
+| `fon/premii-pitch-plati-po-miru.md` | Питч-лист под премии |
+| `fon/medialogia-infopovody-plati-po-miru.md` | Исходное исследование рейтинга и мировых кейсов |
+| `prezentatsii/` | PDF: каталог, топ-5, сводный документ спецпроектов, пять презентаций, экраны сайта музея |
+| `../digital-club-belov/digital-club-tezisy-belov.md` | Рабочая версия тезисов Павла Белова для Digital Club: источники, чек-лист, неудобные вопросы |
+| `../digital-club-belov/digital-club-tezisy-belov-final.md` | Тезисы Павла Белова для Digital Club: только вопросы сценария и ответы |
