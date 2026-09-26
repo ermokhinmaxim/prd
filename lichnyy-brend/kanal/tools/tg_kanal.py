@@ -3,9 +3,9 @@
 
 Работает только с публичными каналами. Закрытые каналы и чаты так не читаются.
 
-    python3 kanal/tools/tg_kanal.py ermokhinpr               # все посты в stdout
-    python3 kanal/tools/tg_kanal.py prkonorova --limit 20    # последние 20
-    python3 kanal/tools/tg_kanal.py ermokhinpr --out DIR     # по файлу на пост
+    python3 lichnyy-brend/kanal/tools/tg_kanal.py ermokhinpr               # все посты в stdout
+    python3 lichnyy-brend/kanal/tools/tg_kanal.py prkonorova --limit 20    # последние 20
+    python3 lichnyy-brend/kanal/tools/tg_kanal.py ermokhinpr --out DIR     # по файлу на пост
 """
 import argparse
 import html

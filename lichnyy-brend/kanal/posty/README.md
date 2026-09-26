@@ -17,7 +17,7 @@
 ## Как добавить новый пост
 
 ```
-python3 kanal/tools/tg_kanal.py ermokhinpr --limit 1 --out /tmp/post
+python3 lichnyy-brend/kanal/tools/tg_kanal.py ermokhinpr --limit 1 --out /tmp/post
 ```
 
 Файл переименовать в `ГГГГ-ММ-ДД-slug.md`, заголовок `# Пост N` заменить названием, добавить строку в таблицу.
